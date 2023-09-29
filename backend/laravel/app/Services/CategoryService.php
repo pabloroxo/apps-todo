@@ -43,9 +43,11 @@ class CategoryService extends Service
         );
 
         if ($validator->fails()) {
-            $error = $validator->errors()->all();
-
-            throw new ArrayException('', Response::HTTP_UNPROCESSABLE_ENTITY, $error);
+            throw new ArrayException(
+                '',
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                $validator->errors()->all(),
+            );
         }
 
         return $this->categoryRepository->create($data);
@@ -73,9 +75,11 @@ class CategoryService extends Service
         );
 
         if ($validator->fails()) {
-            $error = $validator->errors()->all();
-
-            throw new ArrayException('', Response::HTTP_UNPROCESSABLE_ENTITY, $error);
+            throw new ArrayException(
+                '',
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                $validator->errors()->all(),
+            );
         }
 
         return $this->categoryRepository->update($category, $data);
