@@ -5,10 +5,10 @@ An application to manage To-Do tasks with categories and much more. Something li
 The same core will be available in many languages/frameworks and can be consumed by many interfaces between web and mobile platforms.
 
 Features:
-- Manage categories: done!
-- Manage tasks: soon!
-- User registration: soon!
-- Dashboard: soon!
+- Manage categories
+- Manage task
+- User registration
+- Dashboard
 
 ### Backend
 
