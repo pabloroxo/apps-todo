@@ -10,6 +10,10 @@ Features:
 - User registration
 - Dashboard
 
+Some details:
+- If a category is deleted, all tasks from that category will be set to null, so these tasks will be with no category.
+- If start date (and time) happens after end date (and time), the core will accept it as correct and will automatically invert these dates.
+
 ### Backend
 
 - PHP/Laravel:
@@ -32,15 +36,20 @@ All REST APIs will have these endpoints:
 | - | - | - | - |
 | GET | ```/api/categories``` | 200 | list all categories with pagination
 | GET | ```/api/categories/1``` | 200, 404 | show category with id 1
-| POST | ```/api/categories``` |  201, 422 | create category with following data:<br />- ```title```: string, required, 1 to 25 characters<br />- ```description```: text, not required<br />- ```color```: string, required, hex color (like ```#0369AF```)
-| PUT | ```/api/categories/1``` | 200, 404, 422 | update category with id 1 and with same data from ```POST``` method
+| POST | ```/api/categories``` |  201, 422 | create category with following data:<br />- ```title```: required, up to 25 characters<br />- ```description```: not required<br />- ```color```: required, hex color (like ```#0369AF```)
+| PUT | ```/api/categories/1``` | 200, 404, 422 | update category with id 1 and with same data from POST method
 | DELETE | ```/api/categories/1``` | 200*, 404 | delete category with id 1
+| GET | ```/api/tasks``` | 200 | list all tasks with pagination
+| GET | ```/api/tasks/1``` | 200, 404 | show task with id 1
+| POST | ```/api/tasks``` |  201, 422 | create task with following data:<br />- ```title```: required, up to 25 characters<br />- ```description```: not required<br />- ```start_date```: not required, date in format ```Y-m-d``` (like ```1988-04-07```)<br />- ```start_time```: required if ```start_time``` is present, time in format ```H:i:s``` (like ```08:28:00```)<br />- ```end_date```: not required, same format as ```start_date```<br />- ```end_time```: required if ```end_time``` is present, same format as ```start_time```<br />- ```category_id```: not required, ```id``` of an existing category
+| PUT | ```/api/tasks/1``` | 200, 404, 422 | update task with id 1 and with same data from POST method
+| DELETE | ```/api/tasks/1``` | 200*, 404 | delete task with id 1
 
-*\* Should be 204, but I tried to keep the same content in response for all requests as below.*
+*\* Should be 204, but I tried to keep the same structure in response for all requests as below.*
 
-The response is always the same:
+The response is always be with this structure:
 
-- Example of success:
+- Example of success (200, 201):
     ```
     {
         data: <object or array of objects>,
@@ -48,11 +57,13 @@ The response is always the same:
     }
     ```
 
-- Example of error:
+- Example of error (404, 422, 500):
     ```
     {
         data: null,
-        error: <array of errors, even if there is only one>,
+        error: [
+            <one or more errors>,
+        ],
     }
     ```
 
