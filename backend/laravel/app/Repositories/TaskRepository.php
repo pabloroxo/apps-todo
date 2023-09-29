@@ -2,16 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
 use App\Models\Task;
 use Exception;
 use Illuminate\Http\Response;
 
-class CategoryRepository extends Repository
+class TaskRepository extends Repository
 {
     public function index($data)
     {
-        return Category::select()
+        return Task::select()
             ->when(!empty($data['title']), function ($query) use ($data) {
                 $query->where('title', 'like', '%' . $data['title'] . '%');
             })
@@ -30,42 +29,38 @@ class CategoryRepository extends Repository
                 }
                 $query->orderBy($orderBy, $order);
             })
+            ->with('category')
             ->paginate();
     }
 
     public function show($id)
     {
-        return Category::findOr($id, function () {
-            throw new Exception('Category not found.', Response::HTTP_NOT_FOUND);
+        return Task::findOr($id, function () {
+            throw new Exception('Task not found.', Response::HTTP_NOT_FOUND);
         });
     }
 
     public function create($data)
     {
-        return Category::create($data)
+        return Task::create($data)
             ->fresh();
     }
 
-    public function update($category, $data)
+    public function update($task, $data)
     {
-        $category->fill($data);
+        $task->fill($data);
 
-        if ($category->isDirty()) {
-            $category->update();
+        if ($task->isDirty()) {
+            $task->update();
         }
 
-        return $category;
+        return $task;
     }
 
     public function destroy($id)
     {
-        $category = $this->show($id);
+        $task = $this->show($id);
 
-        Task::where('category_id', $id)
-            ->update([
-                'category_id' => null,
-            ]);
-
-        return $category->delete();
+        return $task->delete();
     }
 }
