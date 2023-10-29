@@ -52,7 +52,7 @@ The response is always be with this structure:
 - Example of success (200, 201):
     ```
     {
-        data: <object or array of objects>,
+        data: <object|array of objects>,
         error: null,
     }
     ```
