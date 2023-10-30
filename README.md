@@ -22,7 +22,7 @@ Some details:
   3. Execute command: ```composer install```
   4. Configure ```.env``` file to connect to your database
   5. Execute command: ```php artisan key:generate```
-  6. Execute command: ```php artisan jwt:secret```
+  6. <s>Execute command: ```php artisan jwt:secret```</s>
   7. Execute command: ```php artisan migrate``` *(use ```migrate:fresh``` to drop tables and migrate again)*
   8. Execute command: ```php artisan serve```
 
