@@ -21,8 +21,10 @@ Some details:
   2. Navigate to ```/backend/laravel``` folder
   3. Execute command: ```composer install```
   4. Configure ```.env``` file to connect to your database
-  5. Execute command: ```php artisan migrate``` *(use ```migrate:fresh``` to drop tables and migrate again)*
-  6. Execute command: ```php artisan serve```
+  5. Execute command: ```php artisan key:generate```
+  6. Execute command: ```php artisan jwt:secret```
+  7. Execute command: ```php artisan migrate``` *(use ```migrate:fresh``` to drop tables and migrate again)*
+  8. Execute command: ```php artisan serve```
 
 - JavaScript/Express: soon!
 
